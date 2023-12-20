@@ -7,7 +7,7 @@ Requirements
 
 #########################################################
 #							#
-#		COMPUTER ARCHITECTURE			#
+#	   SECTION 2 - COMPUTER ARCHITECTURE		#
 #							#
 #########################################################
 
@@ -50,7 +50,7 @@ Requirements
 
 #########################################################
 #							#
-#		DATA REPRESENTATION			#
+#	   SECTION 3 - DATA REPRESENTATION		#
 #							#
 #########################################################
 
@@ -214,7 +214,7 @@ Requirements
 
 #########################################################
 #							#
-#		ASSEMBLY LANGUAGE BASICS		#
+#	  SECTION 5 - ASSEMBLY LANGUAGE BASICS		#
 #							#
 #########################################################
 
@@ -253,21 +253,19 @@ Requirements
 	8          ret
 	9
 
-	|Label	|opcode	|operands |comments
-	  main:	  mov	  x0, #0
-		  ret
+	| Label	| opcode | operands | comments			  |
+	|-------|--------|----------|-----------------------------|
+	| main:	|  mov	 |  x0, #0  | move value 0 to register x0 |
+	|	|  ret	 |	    | return to calling procedure |
 
 	To compile the program, run the command: gcc source_file.s -o output_file
 	(add -g to add debugging info)
 
 #################################################
 #						#
-#	LOAD AND STORE INSTRUCTIONS		#
+#    SECTION 6 - LOAD AND STORE INSTRUCTIONS	#
 #						#
 #################################################
-
-13 - Ldr Instructions
----------------------
 
 			 |''''''''|
 			 | ARM v8 |
@@ -287,3 +285,92 @@ Requirements
 	To save the result, we need to move data from registers to
 	memory, or Store the data.
 
+13 - Ldr Instructions
+---------------------
+
+	.data
+	value: .quad 0x123456789abcdef
+
+	.text
+	.global main
+	main:
+		// ldr reg, addr
+		// Loads the address of value inside register x0.
+		ldr x0, =value
+		// Loads the value stored at the address saved above
+		// inside register x1.
+		ldr x1, [x0]
+
+		mov x0, #0
+		ret
+
+14 - Str Instructions
+---------------------
+
+	cf src/str.s file comments
+
+#########################################################
+#							#
+#   SECTION 7 - DATA MOVEMENT AND SHIFT INSTRUCTIONS	#
+#							#
+#########################################################
+
+15 - Shift Left
+---------------
+
+	11011011 <- 0 = ?
+	(00000001)10110110 Shift Left by 1 bit
+	       '
+	(00000011)01101100 Shift Left by 2 bits
+	      ''
+	(00000110)11011000 Shift Left by 3 bits
+	     '''
+	If variable type is too small, firts bits are lost
+
+	cf src/lsl.s file comments
+
+16 - Shift Right
+----------------
+			      
+			   1 -> 11011011
+	Shift Right by 1 bit	11101101
+				'
+	Shift Right by 2 bits	11110110
+				''
+	Shift Right by 3 bits	11111011
+				'''
+			      
+			   0 -> 01011011
+	Shift Right by 1 bit	00101101
+				'
+	Shift Right by 2 bits	00010110
+				''
+	Shift Right by 3 bits	00001011
+				'''
+	
+	cf src/lsr.s file comments
+
+17 - Rotate Instruction
+-----------------------
+
+	Rotate Right
+
+	The Rotate Right instruction moves the lowest bit to the highest position
+	Rotate Right by 1 bit	11011011 -> 11101101
+	       			       '    '
+	Rotate Right by 2 bits	11011011 -> 11110110
+	       			      ''    ''
+	Rotate Right by 3 bits	11011011 -> 01111011
+	       			     '''    '''
+	
+	Rotate Left
+	There is no Rotate Left instruction, but we can simulate it with
+	Rotate Right by x-n bits, where x is the type size
+	
+	Rotate Left by 1 bit	11011011 = Rotate Right by 8-1 bits 11011011 -> 10110111
+	       			'				     '''''''	'''''''
+	Rotate Left by 2 bits	11011011 = Rotate Right by 8-2 bits 11011011 -> 01101111
+	       			''				      ''''''	''''''
+	Rotate Left by 3 bits	11011011 = Rotate Right by 8-3 bits 11011011 -> 11011110
+	       			'''				       '''''	'''''
+	

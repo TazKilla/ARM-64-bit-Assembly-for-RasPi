@@ -374,3 +374,26 @@ Requirements
 	Rotate Left by 3 bits	11011011 = Rotate Right by 8-3 bits 11011011 -> 11011110
 	       			'''				       '''''	'''''
 	
+	cf src/rotate.s file comments
+
+18 - Mov Instruction
+--------------------
+
+	The mov instruction is used to move the content of a register to another one.
+	There is three different mov instruction:
+		mov
+		movz (move with zeros)
+		movk (move with keep)
+	
+	cf src/mov.s file comments
+
+#################################################################
+#								#
+#    SECTION 8 - Operand2 and Basic Arithmetic Instructions	#
+#								#
+#################################################################
+
+19 - Operand2
+-------------
+
+

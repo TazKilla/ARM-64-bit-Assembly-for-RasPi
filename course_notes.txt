@@ -320,11 +320,11 @@ Requirements
 
 	11011011 <- 0 = ?
 	(00000001)10110110 Shift Left by 1 bit
-	       '
+	        '
 	(00000011)01101100 Shift Left by 2 bits
-	      ''
+	       ''
 	(00000110)11011000 Shift Left by 3 bits
-	     '''
+	      '''
 	If variable type is too small, firts bits are lost
 
 	cf src/lsl.s file comments
@@ -357,22 +357,22 @@ Requirements
 
 	The Rotate Right instruction moves the lowest bit to the highest position
 	Rotate Right by 1 bit	11011011 -> 11101101
-	       			       '    '
+				       '    '
 	Rotate Right by 2 bits	11011011 -> 11110110
-	       			      ''    ''
+				      ''    ''
 	Rotate Right by 3 bits	11011011 -> 01111011
-	       			     '''    '''
+				     '''    '''
 	
 	Rotate Left
 	There is no Rotate Left instruction, but we can simulate it with
 	Rotate Right by x-n bits, where x is the type size
 	
 	Rotate Left by 1 bit	11011011 = Rotate Right by 8-1 bits 11011011 -> 10110111
-	       			'				     '''''''	'''''''
+				'				     '''''''	'''''''
 	Rotate Left by 2 bits	11011011 = Rotate Right by 8-2 bits 11011011 -> 01101111
-	       			''				      ''''''	''''''
+				''				      ''''''	''''''
 	Rotate Left by 3 bits	11011011 = Rotate Right by 8-3 bits 11011011 -> 11011110
-	       			'''				       '''''	'''''
+				'''				       '''''	'''''
 	
 	cf src/rotate.s file comments
 
@@ -396,4 +396,19 @@ Requirements
 19 - Operand2
 -------------
 
+	By using operand2, we can perform more than one operation
+	in a single instruction.
 
+		    /	#immediate value		(12-bit unsigned value)
+	Operand2  __|	register
+		    |	register, shift #immediate	(shift, rotate)
+		    \	register, extend #immediate	(unsigned and signed
+							 extended byte,
+							 halfword,
+							 word,
+							 quad)
+
+20 - Neg Instruction
+--------------------
+
+	
